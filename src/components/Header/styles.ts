@@ -13,9 +13,21 @@ export const Header = styled.header`
     font-size: 2.5rem;
     color: rgba(93, 93, 109, 1);
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const WrapperBagAndSearh = styled.div`
   display: flex;
   gap: 1rem;
+
+  @media (max-width: 450px) {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
 `;
