@@ -1,45 +1,26 @@
 "use client";
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
+import { getAllProductsImpl } from "@/repositories/getProducts";
+import { Products, ProductsData } from "@/types/Products";
+import { getProductsUseCase } from "@/useCases/getProductsUseCase";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [testing, setTesting] = useState<[any]>();
+  const [testing, setTesting] = useState<ProductsData<Products>[]>();
+
   useEffect(() => {
-    const query = `
-      query {
-        allProducts {
-
-          name
-          description
-          image_url
-          category
-          price_in_cents
-          sales
-          created_at
-        }
-      }
-    `;
-
-    fetch("http://localhost:3333/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const fetchData = async () => {
+      const data = await getProductsUseCase(getAllProductsImpl);
+      setTesting(data);
+    };
+    fetchData();
   }, []);
 
   return (
     <Container>
       <Header />
+      {/* {testing && testing.map((item: any) => <img src={item.image_url}></img>)} */}
     </Container>
   );
 }
