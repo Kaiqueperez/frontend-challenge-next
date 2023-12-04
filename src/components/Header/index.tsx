@@ -1,4 +1,4 @@
-import BagCart from "../BagCart";
+import { BagCart } from "../BagCart";
 import { SearchField } from "../SearchField";
 import * as S from "./styles";
 interface HeaderProps {

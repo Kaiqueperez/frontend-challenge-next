@@ -1,20 +1,15 @@
-import { ForwardRefRenderFunction, forwardRef } from "react";
+import Button from "../Button";
 import { ImageComponent } from "../ImageComponent";
 import * as S from "./styles";
 
-type BagCartProps = React.ComponentProps<"button"> & {
+type BagCartProps = {
   itensCart?: number;
 };
-const BagCart: ForwardRefRenderFunction<HTMLButtonElement, BagCartProps> = (
-  { ...props }: BagCartProps,
-  ref
-) => {
+export const BagCart = ({ ...props }: BagCartProps) => {
   return (
-    <S.Bag {...props} ref={ref}>
+    <Button>
       <ImageComponent src="Group.svg" />
       <S.Counter>{props.itensCart}</S.Counter>
-    </S.Bag>
+    </Button>
   );
 };
-
-export default forwardRef(BagCart);
