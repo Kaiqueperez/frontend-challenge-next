@@ -5,11 +5,11 @@ import * as S from "./styles";
 type BagCartProps = {
   itensCart?: number;
 };
-export const BagCart = ({ ...props }: BagCartProps) => {
+export const BagCart = ({ itensCart }: BagCartProps) => {
   return (
     <Button>
       <ImageComponent src="Group.svg" />
-      <S.Counter>{props.itensCart}</S.Counter>
+      <S.Counter>{itensCart}</S.Counter>
     </Button>
   );
 };

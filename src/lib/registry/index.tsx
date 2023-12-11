@@ -26,10 +26,8 @@ export default function StyledComponentsRegistry({
     );
 
   return (
-    <>
-      <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-        {children}
-      </StyleSheetManager>
-    </>
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      {children}
+    </StyleSheetManager>
   );
 }

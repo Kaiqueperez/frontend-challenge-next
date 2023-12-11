@@ -1,5 +1,8 @@
+import { useProductStore } from "@/store/produtsStore";
 import { ProductsProps } from "@/types/Products";
-import Link from "next/link";
+import { centsToBrazilianCurrency } from "@/utils";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { ImageComponent } from "../ImageComponent";
 import * as S from "./styles";
 
@@ -11,23 +14,38 @@ const BasicFilter: { [key: string]: string | ProductsProps[] } = {
 
 type CardProps = {
   allProducts: ProductsProps[];
-  filtradedProducts?: ProductsProps[];
   filterParams: string;
 };
-export const Card = ({
-  allProducts,
-  filtradedProducts,
-  filterParams,
-}: CardProps) => {
+
+export const Card = ({ allProducts, filterParams }: CardProps) => {
+  const filtredList = allProducts?.filter((item) =>
+    item.name.includes(filterParams)
+  );
+
+  const { setProduct } = useProductStore();
+
+  useEffect(() => {
+    if (allProducts) {
+      setProduct(allProducts);
+    }
+  }, [allProducts]);
+
+  const { push } = useRouter();
+
   return filterParams === BasicFilter[filterParams] ? (
     <S.CardWrapper>
-      {filtradedProducts?.map((product) => (
-        <S.Card key={product.created_at}>
+      {filtredList?.map((product) => (
+        <S.Card
+          key={product.created_at}
+          onClick={() =>
+            push(`/about/product=${product.name}&${product.price_in_cents}`)
+          }
+        >
           <ImageComponent src={product.image_url} />
           <div className="card-content">
             <p>{product.name}</p>
             <span className="line"></span>
-            <span>{product.price_in_cents}</span>
+            <span>{centsToBrazilianCurrency(product.price_in_cents)}</span>
           </div>
         </S.Card>
       ))}
@@ -35,14 +53,19 @@ export const Card = ({
   ) : (
     <S.CardWrapper>
       {allProducts.map((product) => (
-        <S.Card key={product.created_at}>
+        <S.Card
+          key={product.created_at}
+          onClick={() =>
+            push(
+              `/about/product=${product.name}&price=${product.price_in_cents}`
+            )
+          }
+        >
           <ImageComponent src={product.image_url} />
           <div className="card-content">
-            <Link href={`about/${product.name}`}>
-              <p>{product.name}</p>
-              <span className="line"></span>
-              <span>{product.price_in_cents}</span>
-            </Link>
+            <p>{product.name}</p>
+            <span className="line"></span>
+            <span>{centsToBrazilianCurrency(product.price_in_cents)}</span>
           </div>
         </S.Card>
       ))}

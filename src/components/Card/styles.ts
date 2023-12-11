@@ -12,6 +12,10 @@ export const Card = styled.div`
     height: 15rem;
   }
 
+  :hover {
+    cursor: pointer;
+  }
+
   .card-content {
     padding-top: 1rem;
     background-color: rgba(255, 255, 255, 0.4);

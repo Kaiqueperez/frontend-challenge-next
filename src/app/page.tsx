@@ -3,20 +3,14 @@
 import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
 import { Filters } from "@/components/Filters";
-import { Header } from "@/components/Header";
 import { Section } from "@/components/SectionWrapper/styles";
 import { getAllProductsImpl } from "@/repositories/getProducts";
-import { ProductsProps } from "@/types/Products";
 import { getProductsUseCase } from "@/useCases/getProductsUseCase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useSWR from "swr";
 
 export default function Home() {
-  const [testing, setTesting] = useState<ProductsProps[]>();
   const [filterParam, setFilterParam] = useState<string>("");
-
-  const filtredList = testing?.filter((item) =>
-    item.name.includes(filterParam)
-  );
 
   // const filteredListProducts: { [keyof: string]: ProductsProps[] } = {
   //   highToLow: [...testing!].sort(
@@ -29,27 +23,22 @@ export default function Home() {
   //     ) ?? [],
   // };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getProductsUseCase(getAllProductsImpl);
-      setTesting(data);
-    };
-    fetchData();
-  }, []);
+  const { data: allProducts, isLoading } = useSWR("getAllProducts", () =>
+    getProductsUseCase(getAllProductsImpl)
+  );
 
   return (
     <>
-      <Header />
-      <Container>
-        <Section>
-          <Filters setFilterParam={setFilterParam} />
-          <Card
-            allProducts={testing ?? []}
-            filtradedProducts={filtredList}
-            filterParams={filterParam}
-          />
-        </Section>
-      </Container>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Container>
+          <Section>
+            <Filters setFilterParam={setFilterParam} />
+            <Card allProducts={allProducts ?? []} filterParams={filterParam} />
+          </Section>
+        </Container>
+      )}
     </>
   );
 }

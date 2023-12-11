@@ -1,4 +1,6 @@
 "use client";
+
+import { Header } from "@/components/Header";
 import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({
@@ -9,6 +11,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
+        <Header />
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
