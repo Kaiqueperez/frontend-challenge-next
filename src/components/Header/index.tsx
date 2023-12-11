@@ -1,4 +1,6 @@
-import BagCart from "../BagCart";
+"use client";
+import { useBagCartStore } from "@/store/produtsStore";
+import { BagCart } from "../BagCart";
 import { SearchField } from "../SearchField";
 import * as S from "./styles";
 interface HeaderProps {
@@ -6,6 +8,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ children }: HeaderProps) => {
+  const { product } = useBagCartStore();
+
   return (
     <S.Header>
       <div>
@@ -19,7 +23,7 @@ export const Header = ({ children }: HeaderProps) => {
             placeholder="Procurando por algo específico?"
           />
         </SearchField.Root>
-        <BagCart />
+        <BagCart itensCart={product.length} />
       </S.WrapperBagAndSearh>
     </S.Header>
   );

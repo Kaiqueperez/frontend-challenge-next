@@ -5,6 +5,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-around;
   height: 5rem;
+  background-color: black;
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
 

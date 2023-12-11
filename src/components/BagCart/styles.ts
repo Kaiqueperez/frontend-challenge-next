@@ -18,5 +18,5 @@ export const Counter = styled.div`
   position: absolute;
   bottom: 0px;
   color: white;
-  right: 0;
+  right: -7px;
 `;
