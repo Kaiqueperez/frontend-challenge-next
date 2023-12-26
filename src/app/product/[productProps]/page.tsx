@@ -3,15 +3,15 @@
 import { Container } from "@/components/Container";
 import { ImageComponent } from "@/components/ImageComponent";
 import { getAllProductsImpl } from "@/repositories/getProducts";
-import { useBagCartStore } from "@/store/produtsStore";
+import { useBagCartStore } from "@/store";
 import { getChossenProductUseCase } from "@/useCases/getChossenProductUseCase";
 import { centsToBrazilianCurrency, productNameSliced } from "@/utils";
 import { urlParamsSliced } from "@/utils/urlParamsSliced";
 import Link from "next/link";
 import useSWR from "swr";
 
-export default function Page({ params }: { params: { nameId: string } }) {
-  const price = urlParamsSliced(params.nameId);
+export default function Page({ params }: { params: { productProps: string } }) {
+  const price = urlParamsSliced(params.productProps);
 
   const { data: choosenProduct, isLoading } = useSWR("testFilter", () =>
     getChossenProductUseCase(price, getAllProductsImpl)
@@ -48,7 +48,7 @@ export default function Page({ params }: { params: { nameId: string } }) {
           </div>
 
           <button onClick={() => setBagCartProduct!(choosenProduct!)}>
-            oaoksdoasodk
+            Adicionar ao Carrinho
           </button>
         </section>
       )}

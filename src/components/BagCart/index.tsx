@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "../Button";
 import { ImageComponent } from "../ImageComponent";
 import * as S from "./styles";
@@ -8,8 +9,10 @@ type BagCartProps = {
 export const BagCart = ({ itensCart }: BagCartProps) => {
   return (
     <Button>
-      <ImageComponent src="Group.svg" />
-      <S.Counter>{itensCart}</S.Counter>
+      <Link href={"/checkout/cart"}>
+        <ImageComponent src="Group.svg" />
+        <S.Counter>{itensCart}</S.Counter>
+      </Link>
     </Button>
   );
 };
