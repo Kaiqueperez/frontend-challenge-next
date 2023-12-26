@@ -1,19 +1,19 @@
 "use client";
-import { useBagCartStore } from "@/store/produtsStore";
+import { useBagCartStore } from "@/store";
+import Link from "next/link";
 import { BagCart } from "../BagCart";
 import { SearchField } from "../SearchField";
 import * as S from "./styles";
-interface HeaderProps {
-  children?: React.ReactNode;
-}
 
-export const Header = ({ children }: HeaderProps) => {
+export const Header = () => {
   const { product } = useBagCartStore();
 
   return (
     <S.Header>
       <div>
-        <h1> Capputeeno</h1>
+        <Link href="/">
+          <h1> Capputeeno</h1>
+        </Link>
       </div>
 
       <S.WrapperBagAndSearh>

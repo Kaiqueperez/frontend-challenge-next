@@ -26,7 +26,7 @@ export const Card = ({ allProducts, filterParams }: CardProps) => {
 
   useEffect(() => {
     if (allProducts) {
-      setProduct(allProducts);
+      setProduct!(allProducts);
     }
   }, [allProducts]);
 
@@ -34,11 +34,11 @@ export const Card = ({ allProducts, filterParams }: CardProps) => {
 
   return filterParams === BasicFilter[filterParams] ? (
     <S.CardWrapper>
-      {filtredList?.map((product) => (
+      {filtredList?.map((product, index) => (
         <S.Card
-          key={product.created_at}
+          key={index}
           onClick={() =>
-            push(`/about/product=${product.name}&${product.price_in_cents}`)
+            push(`/product/product=${product.name}&${product.price_in_cents}`)
           }
         >
           <ImageComponent src={product.image_url} />
@@ -52,12 +52,12 @@ export const Card = ({ allProducts, filterParams }: CardProps) => {
     </S.CardWrapper>
   ) : (
     <S.CardWrapper>
-      {allProducts.map((product) => (
+      {allProducts.map((product, index) => (
         <S.Card
-          key={product.created_at}
+          key={index}
           onClick={() =>
             push(
-              `/about/product=${product.name}&price=${product.price_in_cents}`
+              `/product/product=${product.name}&price=${product.price_in_cents}`
             )
           }
         >
