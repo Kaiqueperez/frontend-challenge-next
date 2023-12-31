@@ -62,11 +62,13 @@ export const Card = ({ allProducts, filterParams }: CardProps) => {
           }
         >
           <ImageComponent src={product.image_url} />
-          <div className="card-content">
+          <S.CardContent>
             <p>{product.name}</p>
             <span className="line"></span>
-            <span>{centsToBrazilianCurrency(product.price_in_cents)}</span>
-          </div>
+            <span id="price">
+              {centsToBrazilianCurrency(product.price_in_cents)}
+            </span>
+          </S.CardContent>
         </S.Card>
       ))}
     </S.CardWrapper>
