@@ -3,17 +3,9 @@ import styled from "styled-components";
 export const FilterWrapper = styled.section`
   display: flex;
   gap: 2.5rem;
-
-  .filterContent {
-    :hover {
-      border-bottom: 2px solid orange;
-      cursor: pointer;
-    }
-  }
-  .wrapper-filter-content {
-    display: flex;
-    gap: 2rem;
-  }
+  height: 22px;
+  margin: 0 70px;
+  justify-content: space-between;
 
   select {
     background-color: transparent;
@@ -24,4 +16,9 @@ export const FilterWrapper = styled.section`
       font-size: 1rem;
     }
   }
+`;
+
+export const WrapperFilterContent = styled.div`
+  display: flex;
+  gap: 2rem;
 `;

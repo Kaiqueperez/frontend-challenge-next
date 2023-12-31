@@ -10,9 +10,13 @@ export const Header = styled.header`
   background-color: rgba(255, 255, 255, 1);
 
   h1 {
-    font-family: Saira Stencil One;
+    font-family: "Saira Stencil One";
     font-size: 2.5rem;
     color: rgba(93, 93, 109, 1);
+  }
+
+  a {
+    text-decoration: none;
   }
 
   @media (max-width: 768px) {
