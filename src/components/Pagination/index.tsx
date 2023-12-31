@@ -19,8 +19,6 @@ export const Pagination = ({
     (_, index) => index + 1
   );
 
-  console.log(numberOfPages);
-
   const changePage = (number: number) => setCurrentPage(number);
   const previousPage = () => setCurrentPage(currentPage - 1);
   const nextPage = () => setCurrentPage(currentPage + 1);
