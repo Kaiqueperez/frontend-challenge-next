@@ -1,5 +1,4 @@
 "use client";
-
 import { Container } from "@/components/Container";
 import { ImageComponent } from "@/components/ImageComponent";
 import { getAllProductsImpl } from "@/repositories/getProducts";
@@ -9,6 +8,7 @@ import { centsToBrazilianCurrency, productNameSliced } from "@/utils";
 import { urlParamsSliced } from "@/utils/urlParamsSliced";
 import Link from "next/link";
 import useSWR from "swr";
+import * as S from "./styles";
 
 export default function Page({ params }: { params: { productProps: string } }) {
   const price = urlParamsSliced(params.productProps);
@@ -24,33 +24,44 @@ export default function Page({ params }: { params: { productProps: string } }) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <section>
-          <div>
-            <button>
+        <S.WrapperProductInfo>
+          <S.WrapperImage>
+            <S.BackButton>
               <Link href={"/"}>Voltar</Link>
-            </button>
+            </S.BackButton>
 
             <ImageComponent src={choosenProduct?.image_url} />
-          </div>
+          </S.WrapperImage>
 
-          <div>
-            <span>{productNameSliced(choosenProduct?.name ?? "")}</span>
-            <h2>{choosenProduct?.name}</h2>
-            <p>{centsToBrazilianCurrency(choosenProduct?.price_in_cents!)}</p>
-            <p>
-              *Frete de R$40,00 para todo o Brasil. Grátis para compras acima de
-              R$900,00.
-            </p>
+          <S.WrapperProductDescriton>
             <div>
-              <h4>Descrição</h4>
-              <p>{choosenProduct?.description}</p>
-            </div>
-          </div>
+              <S.ProductTitle>
+                <span>{productNameSliced(choosenProduct?.name ?? "")}</span>
+                <h2>{choosenProduct?.name}</h2>
+              </S.ProductTitle>
+              <S.ValueAndDeliveryTaxes>
+                <p>
+                  {centsToBrazilianCurrency(choosenProduct?.price_in_cents!)}
+                </p>
+                <p>
+                  *Frete de R$40,00 para todo o Brasil. Grátis para compras
+                  acima de R$900,00.
+                </p>
+              </S.ValueAndDeliveryTaxes>
 
-          <button onClick={() => setBagCartProduct!(choosenProduct!)}>
-            Adicionar ao Carrinho
-          </button>
-        </section>
+              <S.Description>
+                <h4>Descrição</h4>
+                <p>{choosenProduct?.description}</p>
+              </S.Description>
+            </div>
+
+            <S.AddToCartButton
+              onClick={() => setBagCartProduct!(choosenProduct!)}
+            >
+              Adicionar ao Carrinho
+            </S.AddToCartButton>
+          </S.WrapperProductDescriton>
+        </S.WrapperProductInfo>
       )}
     </Container>
   );

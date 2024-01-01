@@ -35,7 +35,6 @@ export const CardContent = styled.div`
   span {
     padding-left: 1rem;
     color: #41414d;
-    font-family: "Saira";
   }
 
   #price {

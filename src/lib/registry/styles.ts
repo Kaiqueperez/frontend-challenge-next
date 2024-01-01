@@ -14,9 +14,11 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    * {
+    text-decoration: none;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Saira';
 }
 
 html,

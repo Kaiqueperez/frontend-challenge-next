@@ -33,17 +33,26 @@ export const Pagination = ({
         ))}
       </S.WrapperNumberedButtons>
       <S.WrapperArrowButtons>
-        <Button disabled={currentPage === 1} onClick={previousPage}>
-          {" "}
-          {"<"}{" "}
-        </Button>
-        <Button
-          disabled={currentPage >= numberOfPages.length}
-          onClick={nextPage}
-        >
-          {" "}
-          {">"}
-        </Button>
+        {currentPage === 1 ? (
+          <></>
+        ) : (
+          <Button disabled={currentPage === 1} onClick={previousPage}>
+            {" "}
+            {"<"}{" "}
+          </Button>
+        )}
+
+        {currentPage >= numberOfPages.length ? (
+          <> </>
+        ) : (
+          <Button
+            disabled={currentPage >= numberOfPages.length}
+            onClick={nextPage}
+          >
+            {" "}
+            {">"}
+          </Button>
+        )}
       </S.WrapperArrowButtons>
     </S.WrapperPaginationButtons>
   );

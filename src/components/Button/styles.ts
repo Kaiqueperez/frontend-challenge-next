@@ -4,6 +4,7 @@ export const Button = styled.button`
   background-color: transparent;
   border: none;
   position: relative;
+  cursor: pointer;
 
   :only-child {
     font-size: 1rem;
