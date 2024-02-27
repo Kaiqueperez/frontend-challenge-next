@@ -1,12 +1,14 @@
 "use client";
-import { useBagCartStore } from "@/store";
+import { useBagCartStore, useFilterListState } from "@/store";
 import Link from "next/link";
 import { BagCart } from "../BagCart";
 import { SearchField } from "../SearchField";
 import * as S from "./styles";
 
 export const Header = () => {
-  const { product } = useBagCartStore();
+  const { products } = useBagCartStore();
+
+  const { setSearchFilterValue, searcFilterhValue } = useFilterListState();
 
   return (
     <S.Header>
@@ -19,11 +21,13 @@ export const Header = () => {
       <S.WrapperBagAndSearh>
         <SearchField.Root>
           <SearchField.Input
+            value={searcFilterhValue}
             icon="Search.svg"
             placeholder="Procurando por algo específico?"
+            onChange={(e) => setSearchFilterValue(e.currentTarget.value)}
           />
         </SearchField.Root>
-        <BagCart itensCart={product.length} />
+        <BagCart itensCart={products.length} />
       </S.WrapperBagAndSearh>
     </S.Header>
   );

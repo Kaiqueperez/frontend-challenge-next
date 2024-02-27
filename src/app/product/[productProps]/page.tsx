@@ -10,7 +10,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import * as S from "./styles";
 
-export default function Page({ params }: { params: { productProps: string } }) {
+export default function Page({ params }: Readonly<{ params: { productProps: string } }>) {
   const price = urlParamsSliced(params.productProps);
 
   const { data: choosenProduct, isLoading } = useSWR("testFilter", () =>

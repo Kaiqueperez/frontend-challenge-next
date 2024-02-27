@@ -1,8 +1,10 @@
-import { ForwardRefRenderFunction, forwardRef } from "react";
+import { ForwardRefRenderFunction, MouseEventHandler, forwardRef } from "react";
+import Button from "../Button";
 import { ImageComponent } from "../ImageComponent";
 import * as S from "./styles";
 type SearchFieldInputProps = React.ComponentProps<"input"> & {
   icon?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
 const SearchFieldInput: ForwardRefRenderFunction<
@@ -12,7 +14,11 @@ const SearchFieldInput: ForwardRefRenderFunction<
   return (
     <S.WrapperSearchInput>
       <S.InputField {...props} ref={forwardRef} />
-      {props.icon && <ImageComponent src={props.icon} />}
+      {props.icon && (
+        <Button onClick={props.onClick}>
+          <ImageComponent src={props.icon} />
+        </Button>
+      )}
     </S.WrapperSearchInput>
   );
 };
