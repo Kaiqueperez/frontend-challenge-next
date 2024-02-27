@@ -18,7 +18,7 @@ export const Filters = ({ setFilterParam }: FilterProps) => {
       <S.WrapperFilterContent>
         <Filter
           text={filterValues.allProducts}
-          value="allProducts"
+          value=""
           onClick={(e) => setFilterParam(e.currentTarget.value)}
         />
         <Filter

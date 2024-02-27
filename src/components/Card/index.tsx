@@ -1,16 +1,9 @@
-import { useProductStore } from "@/store/produtsStore";
 import { ProductsProps } from "@/types/Products";
 import { centsToBrazilianCurrency } from "@/utils";
+import { productListFiltred } from "@/utils/productListFiltred";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { ImageComponent } from "../ImageComponent";
 import * as S from "./styles";
-
-const BasicFilter: { [key: string]: string | ProductsProps[] } = {
-  Camiseta: "Camiseta",
-  Caneca: "Caneca",
-  allProducts: "",
-};
 
 type CardProps = {
   allProducts: ProductsProps[];
@@ -18,37 +11,41 @@ type CardProps = {
 };
 
 export const Card = ({ allProducts, filterParams }: CardProps) => {
-  const filtredList = allProducts?.filter((item) =>
-    item.name.includes(filterParams)
-  );
+  const filtredList = productListFiltred(allProducts, filterParams);
 
-  const { setProduct } = useProductStore();
-
-  useEffect(() => {
-    if (allProducts) {
-      setProduct!(allProducts);
-    }
-  }, [allProducts]);
+  const isEmpty = filtredList.length === 0;
 
   const { push } = useRouter();
 
-  return filterParams === BasicFilter[filterParams] ? (
+  // const { isEmpty, setIsEmpty } = useIsEmptyState();
+
+  // console.log(isEmpty);
+
+  // useEffect(() => {
+  //   () => setIsEmpty(filtredList);
+  // }, [filtredList]);
+
+  return filterParams ? (
     <S.CardWrapper>
-      {filtredList?.map((product, index) => (
-        <S.Card
-          key={index}
-          onClick={() =>
-            push(`/product/product=${product.name}&${product.price_in_cents}`)
-          }
-        >
-          <ImageComponent src={product.image_url} />
-          <div className="card-content">
-            <p>{product.name}</p>
-            <span className="line"></span>
-            <span>{centsToBrazilianCurrency(product.price_in_cents)}</span>
-          </div>
-        </S.Card>
-      ))}
+      {isEmpty ? (
+        <>Produto não encontrado</>
+      ) : (
+        filtredList?.map((product, index) => (
+          <S.Card
+            key={index}
+            onClick={() =>
+              push(`/product/product=${product.name}&${product.price_in_cents}`)
+            }
+          >
+            <ImageComponent src={product.image_url} />
+            <div className="card-content">
+              <p>{product.name}</p>
+              <span className="line"></span>
+              <span>{centsToBrazilianCurrency(product.price_in_cents)}</span>
+            </div>
+          </S.Card>
+        ))
+      )}
     </S.CardWrapper>
   ) : (
     <S.CardWrapper>
