@@ -1,5 +1,5 @@
 export type Products = {
-  allProducts: any;
+  allProducts: ProductsProps[];
 };
 
 export type ProductsProps = {
