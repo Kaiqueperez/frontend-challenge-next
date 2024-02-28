@@ -5,6 +5,7 @@ import { Container } from '@/components/Container'
 import { Filters } from '@/components/Filters'
 import { Pagination } from '@/components/Pagination'
 import { Section } from '@/components/SectionWrapper/styles'
+import usePagination from '@/hooks/usePagination'
 import { getAllProductsImpl } from '@/repositories/getProducts'
 import { useFilterListState } from '@/store'
 import { getProductsUseCase } from '@/useCases/getProductsUseCase'
@@ -12,25 +13,20 @@ import { useState } from 'react'
 import useSWR from 'swr'
 
 export default function Home() {
-  const [filterParam, setFilterParam] = useState('')
-
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const { searcFilterhValue } = useFilterListState()
-
   const { data: allProducts, isLoading } = useSWR('getAllProducts', () =>
     getProductsUseCase(getAllProductsImpl)
   )
+  const [filterParam, setFilterParam] = useState('')
 
-  const POST_PER_PAGE = 12
+  const {
+    POST_PER_PAGE,
+    currentPage,
+    productLength,
+    setCurrentPage,
+    currentProducts,
+  } = usePagination(allProducts ?? [])
 
-  const indexOfLastPost = currentPage * POST_PER_PAGE
-
-  const indexOfFirstPost = indexOfLastPost - POST_PER_PAGE
-
-  const currentProducts = allProducts
-    ? allProducts.slice(indexOfFirstPost, indexOfLastPost)
-    : []
+  const { searcFilterhValue } = useFilterListState()
 
   return (
     <>
@@ -42,7 +38,7 @@ export default function Home() {
             <Filters setFilterParam={setFilterParam} />
             <Pagination
               currentPage={currentPage}
-              totalOfProducts={allProducts.length}
+              totalOfProducts={productLength}
               productsPerPage={POST_PER_PAGE}
               setCurrentPage={setCurrentPage}
             />
@@ -52,7 +48,7 @@ export default function Home() {
             />
             <Pagination
               currentPage={currentPage}
-              totalOfProducts={allProducts.length}
+              totalOfProducts={productLength}
               productsPerPage={POST_PER_PAGE}
               setCurrentPage={setCurrentPage}
             />

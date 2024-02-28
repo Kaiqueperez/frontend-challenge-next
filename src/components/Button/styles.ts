@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Button = styled.button`
   background-color: transparent;
@@ -6,9 +6,7 @@ export const Button = styled.button`
   position: relative;
   cursor: pointer;
 
-  :only-child {
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-`;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+`
