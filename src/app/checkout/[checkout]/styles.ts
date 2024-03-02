@@ -95,17 +95,18 @@ export const TotalPrice = styled.div`
   gap: 8px;
   padding: 32px 24px 24px 24px;
   width: 100%;
-  
+
   hr {
-      width: 100%;
-      background-color: #dce2e5;
-    }
+    width: 100%;
+    background-color: #dce2e5;
+  }
   div {
     display: flex;
     width: 100%;
     justify-content: space-between;
 
-    p,span {
+    p,
+    span {
       font-weight: 600;
     }
   }
@@ -130,5 +131,21 @@ export const QuestionsAnswers = styled.div`
     text-decoration: underline;
     color: #737380;
     line-height: 21px;
+  }
+`
+
+export const CustomSelect = styled.div`
+  position: relative;
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 16px;
+    background-color: #fff;
+    border: 1px solid #a8a8b3;
+    border-radius: 8px;
+    color: #000;
+    cursor: pointer;
   }
 `
