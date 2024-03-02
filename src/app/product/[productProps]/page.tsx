@@ -1,23 +1,28 @@
-"use client";
-import { Container } from "@/components/Container";
-import { ImageComponent } from "@/components/ImageComponent";
-import { getAllProductsImpl } from "@/repositories/getProducts";
-import { useBagCartStore } from "@/store";
-import { getChossenProductUseCase } from "@/useCases/getChossenProductUseCase";
-import { centsToBrazilianCurrency, productNameSliced } from "@/utils";
-import { urlParamsSliced } from "@/utils/urlParamsSliced";
-import Link from "next/link";
-import useSWR from "swr";
-import * as S from "./styles";
+'use client'
+import { Container } from '@/components/Container'
+import { ImageComponent } from '@/components/ImageComponent'
+import { getAllProductsImpl } from '@/repositories/getProducts'
+import { useBagCartStore } from '@/store'
+import { getChossenProductUseCase } from '@/useCases/getChossenProductUseCase'
+import { centsToBrazilianCurrency, productNameSliced } from '@/utils'
+import { urlParamsSliced } from '@/utils/urlParamsSliced'
+import Link from 'next/link'
+import useSWR from 'swr'
+import * as S from './styles'
 
-export default function Page({ params }: Readonly<{ params: { productProps: string } }>) {
-  const price = urlParamsSliced(params.productProps);
+export default function Page({
+  params,
+}: Readonly<{ params: { productProps: string } }>) {
+  const price = urlParamsSliced(params.productProps)
 
-  const { data: choosenProduct, isLoading } = useSWR("testFilter", () =>
+  const { data: choosenProduct, isLoading } = useSWR('testFilter', () =>
     getChossenProductUseCase(price, getAllProductsImpl)
-  );
+  )
 
-  const { setBagCartProduct } = useBagCartStore();
+  const { setBagCartProduct } = useBagCartStore()
+
+
+  
 
   return (
     <Container>
@@ -27,7 +32,7 @@ export default function Page({ params }: Readonly<{ params: { productProps: stri
         <S.WrapperProductInfo>
           <S.WrapperImage>
             <S.BackButton>
-              <Link href={"/"}>Voltar</Link>
+              <Link href={'/'}>Voltar</Link>
             </S.BackButton>
 
             <ImageComponent src={choosenProduct?.image_url} />
@@ -36,7 +41,7 @@ export default function Page({ params }: Readonly<{ params: { productProps: stri
           <S.WrapperProductDescriton>
             <div>
               <S.ProductTitle>
-                <span>{productNameSliced(choosenProduct?.name ?? "")}</span>
+                <span>{productNameSliced(choosenProduct?.name ?? '')}</span>
                 <h2>{choosenProduct?.name}</h2>
               </S.ProductTitle>
               <S.ValueAndDeliveryTaxes>
@@ -55,14 +60,16 @@ export default function Page({ params }: Readonly<{ params: { productProps: stri
               </S.Description>
             </div>
 
-            <S.AddToCartButton
-              onClick={() => setBagCartProduct!(choosenProduct!)}
-            >
-              Adicionar ao Carrinho
-            </S.AddToCartButton>
+            {!!choosenProduct &&(
+                <S.AddToCartButton
+                  onClick={() => setBagCartProduct!(choosenProduct)}
+                >
+                  Adicionar ao Carrinho
+                </S.AddToCartButton>
+              )}
           </S.WrapperProductDescriton>
         </S.WrapperProductInfo>
       )}
     </Container>
-  );
+  )
 }

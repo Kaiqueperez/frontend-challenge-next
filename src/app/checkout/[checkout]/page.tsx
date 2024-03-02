@@ -14,12 +14,11 @@ export default function Page() {
     (state: any) => state
   )
 
-  const { products, removeProduct } = cartBag ?? {}
+  const { products, removeProduct, subTotalPrice, amountItens } = cartBag ?? {}
 
-  const subTotalPrice = products?.reduce(
-    (acc, product) => acc + product.price_in_cents,
-    0
-  )
+  const DELIVERY_TAX = 4000
+
+  const cartValue = subTotalPrice?.reduce((acc, current) => acc + current, 0)
 
   return (
     <Container>
@@ -34,27 +33,30 @@ export default function Page() {
             <Link href={'/'}>Voltar para Home</Link>
             <p>Seu carrinho</p>
             <span>
-              {`Total (${products?.length}) produtos`}{' '}
-              <b>{centsToBrazilianCurrency(subTotalPrice ?? 0)}</b>
+              {`Total (${amountItens}) produtos`}{' '}
+              <b>{centsToBrazilianCurrency(cartValue ?? 0)}</b>
             </span>
           </S.ProductPreview>
 
           <S.ProductsWrapper>
             {products?.map((product, index) => (
-              <S.Products key={index}>
+              <S.Products key={product.id}>
                 <ImageComponent src={product.image_url} />
                 <S.ProductDescriptionWrapper>
                   <div>
                     <h4>{product.name}</h4>
-                    <button onClick={() => removeProduct!(index)}>
+                    <button onClick={() => removeProduct!(product.id)}>
                       Delete
                     </button>
                   </div>
                   <p>{product.description}</p>
                   <div>
-                    <select name="" id="">
-                      <option value="">1</option>
-                    </select>
+                    <div>
+                      <button>+</button>
+                      <span>{product.itemCount}</span>
+                      <button>-</button>
+                    </div>
+
                     <span>
                       {centsToBrazilianCurrency(product.price_in_cents)}
                     </span>
@@ -72,11 +74,11 @@ export default function Page() {
                 <S.SubtotalPriceDelivery>
                   <div>
                     <p>Subtotal de produtos </p>
-                    <span>{centsToBrazilianCurrency(subTotalPrice!)}</span>
+                    <span>{centsToBrazilianCurrency(cartValue ?? 0)}</span>
                   </div>
                   <div>
                     <p>Entrega</p>
-                    <span>{centsToBrazilianCurrency(4000)}</span>
+                    <span>{centsToBrazilianCurrency(DELIVERY_TAX)}</span>
                   </div>
                 </S.SubtotalPriceDelivery>
 
@@ -85,7 +87,9 @@ export default function Page() {
 
                   <div>
                     <p>Total</p>
-                    <span>{centsToBrazilianCurrency(4000)}</span>
+                    <span>
+                      {centsToBrazilianCurrency(cartValue! + DELIVERY_TAX)}
+                    </span>
                   </div>
                 </S.TotalPrice>
                 <S.BuyButton>

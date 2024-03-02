@@ -1,14 +1,14 @@
-"use client";
-import { useBagCartStore, useFilterListState } from "@/store";
-import Link from "next/link";
-import { BagCart } from "../BagCart";
-import { SearchField } from "../SearchField";
-import * as S from "./styles";
+'use client'
+import { useBagCartStore, useFilterListState } from '@/store'
+import Link from 'next/link'
+import { BagCart } from '../BagCart'
+import { SearchField } from '../SearchField'
+import * as S from './styles'
 
 export const Header = () => {
-  const { products } = useBagCartStore();
+  const { amountItens } = useBagCartStore()
 
-  const { setSearchFilterValue, searcFilterhValue } = useFilterListState();
+  const { setSearchFilterValue, searcFilterhValue } = useFilterListState()
 
   return (
     <S.Header>
@@ -27,8 +27,8 @@ export const Header = () => {
             onChange={(e) => setSearchFilterValue(e.currentTarget.value)}
           />
         </SearchField.Root>
-        <BagCart itensCart={products.length} />
+        <BagCart itensCart={amountItens ?? 0} />
       </S.WrapperBagAndSearh>
     </S.Header>
-  );
-};
+  )
+}
