@@ -14,7 +14,7 @@ export default function Page() {
     (state: any) => state
   )
 
-  const { products, removeProduct, subTotalPrice, amountItens } = cartBag ?? {}
+  const { products, removeProduct, subTotalPrice, amountItens, incrementCart, decrementCart } = cartBag ?? {} as BagCartStore
 
   const DELIVERY_TAX = 4000
 
@@ -36,6 +36,8 @@ export default function Page() {
               {`Total (${amountItens}) produtos`}{' '}
               <b>{centsToBrazilianCurrency(cartValue ?? 0)}</b>
             </span>
+
+            
           </S.ProductPreview>
 
           <S.ProductsWrapper>
@@ -52,9 +54,9 @@ export default function Page() {
                   <p>{product.description}</p>
                   <div>
                     <div>
-                      <button>+</button>
+                      <button onClick={() => incrementCart(product.id)}>+</button>
                       <span>{product.itemCount}</span>
-                      <button>-</button>
+                      <button onClick={() => decrementCart(product.id)} hidden={product.itemCount === 1}>-</button>
                     </div>
 
                     <span>
