@@ -14,11 +14,16 @@ export default function Page() {
     (state: any) => state
   )
 
-  const { products, removeProduct, subTotalPrice, amountItens } = cartBag ?? {}
+  const { products, removeProduct, subTotalPrice, amountItens, incrementCart, decrementCart } = cartBag ?? {} as BagCartStore
 
   const DELIVERY_TAX = 4000
 
   const cartValue = subTotalPrice?.reduce((acc, current) => acc + current, 0)
+
+  const clearStorage =  () => {
+    localStorage.getItem('shop-storage')
+    localStorage.clear()
+  }
 
   return (
     <Container>
@@ -36,6 +41,8 @@ export default function Page() {
               {`Total (${amountItens}) produtos`}{' '}
               <b>{centsToBrazilianCurrency(cartValue ?? 0)}</b>
             </span>
+
+            <button onClick={clearStorage}>Clear Storage</button>
           </S.ProductPreview>
 
           <S.ProductsWrapper>
@@ -52,9 +59,9 @@ export default function Page() {
                   <p>{product.description}</p>
                   <div>
                     <div>
-                      <button>+</button>
+                      <button onClick={() => incrementCart(product.id)}>+</button>
                       <span>{product.itemCount}</span>
-                      <button>-</button>
+                      <button onClick={() => decrementCart(product.id)} hidden={product.itemCount === 1}>-</button>
                     </div>
 
                     <span>
