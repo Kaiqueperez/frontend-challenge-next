@@ -20,11 +20,6 @@ export default function Page() {
 
   const cartValue = subTotalPrice?.reduce((acc, current) => acc + current, 0)
 
-  const clearStorage =  () => {
-    localStorage.getItem('shop-storage')
-    localStorage.clear()
-  }
-
   return (
     <Container>
       {products?.length === 0 ? (
@@ -42,7 +37,7 @@ export default function Page() {
               <b>{centsToBrazilianCurrency(cartValue ?? 0)}</b>
             </span>
 
-            <button onClick={clearStorage}>Clear Storage</button>
+            
           </S.ProductPreview>
 
           <S.ProductsWrapper>
