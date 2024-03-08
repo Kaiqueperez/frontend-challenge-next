@@ -1,28 +1,34 @@
 'use client'
 import { Container } from '@/components/Container'
 import { ImageComponent } from '@/components/ImageComponent'
+import { Toast } from '@/components/Toast'
 import { getAllProductsImpl } from '@/repositories/getProducts'
 import { useBagCartStore } from '@/store'
 import { getChossenProductUseCase } from '@/useCases/getChossenProductUseCase'
 import { centsToBrazilianCurrency, productNameSliced } from '@/utils'
 import { urlParamsSliced } from '@/utils/urlParamsSliced'
 import Link from 'next/link'
+import { useState } from 'react'
 import useSWR from 'swr'
 import * as S from './styles'
 
 export default function Page({
   params,
 }: Readonly<{ params: { productProps: string } }>) {
+  const [showToast, setShowToast] = useState(false)
   const price = urlParamsSliced(params.productProps)
 
+  const handleToast = () => {
+    setShowToast(true)
+    setTimeout(() => {
+      setShowToast((prev) => !prev)
+    }, 2000)
+  }
   const { data: choosenProduct, isLoading } = useSWR('testFilter', () =>
     getChossenProductUseCase(price, getAllProductsImpl)
   )
 
   const { setBagCartProduct } = useBagCartStore()
-
-
-  
 
   return (
     <Container>
@@ -30,6 +36,10 @@ export default function Page({
         <p>Loading...</p>
       ) : (
         <S.WrapperProductInfo>
+          <Toast
+            needShow={showToast}
+            toastText="Produto adicionado com sucesso!"
+          />
           <S.WrapperImage>
             <S.BackButton>
               <Link href={'/'}>Voltar</Link>
@@ -60,13 +70,16 @@ export default function Page({
               </S.Description>
             </div>
 
-            {!!choosenProduct &&(
-                <S.AddToCartButton
-                  onClick={() => setBagCartProduct!(choosenProduct)}
-                >
-                  Adicionar ao Carrinho
-                </S.AddToCartButton>
-              )}
+            {!!choosenProduct && (
+              <S.AddToCartButton
+                onClick={() => {
+                  setBagCartProduct!(choosenProduct)
+                  handleToast()
+                }}
+              >
+                Adicionar ao Carrinho
+              </S.AddToCartButton>
+            )}
           </S.WrapperProductDescriton>
         </S.WrapperProductInfo>
       )}
