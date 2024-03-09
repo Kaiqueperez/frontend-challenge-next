@@ -27,7 +27,7 @@ export const Header = () => {
             onChange={(e) => setSearchFilterValue(e.currentTarget.value)}
           />
         </SearchField.Root>
-        <BagCart itensCart={amountItens ?? 0} />
+        <BagCart itensCart={amountItens ?? 0} url="/checkout/cart" />
       </S.WrapperBagAndSearh>
     </S.Header>
   )

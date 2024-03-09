@@ -16,9 +16,13 @@ export default function Page() {
 
   const { products, removeProduct, subTotalPrice, amountItens, incrementCart, decrementCart } = cartBag ?? {} as BagCartStore
 
+  const cartValue = subTotalPrice?.reduce((acc, current) => acc + current, 0)
+
   const DELIVERY_TAX = 4000
 
-  const cartValue = subTotalPrice?.reduce((acc, current) => acc + current, 0)
+  const isFreeTax = cartValue >= 90000
+
+ 
 
   return (
     <Container>
@@ -90,7 +94,7 @@ export default function Page() {
                   <div>
                     <p>Total</p>
                     <span>
-                      {centsToBrazilianCurrency(cartValue! + DELIVERY_TAX)}
+                      {centsToBrazilianCurrency(cartValue! + (isFreeTax ? 0 : DELIVERY_TAX))}
                     </span>
                   </div>
                 </S.TotalPrice>

@@ -1,40 +1,32 @@
-import { ProductsProps } from "@/types/Products";
-import { centsToBrazilianCurrency } from "@/utils";
-import { productListFiltred } from "@/utils/productListFiltred";
-import { useRouter } from "next/navigation";
-import { ImageComponent } from "../ImageComponent";
-import * as S from "./styles";
+import { ProductsProps } from '@/types/Products'
+import { centsToBrazilianCurrency } from '@/utils'
+import { productListFiltred } from '@/utils/productListFiltred'
+import { useRouter } from 'next/navigation'
+import { ImageComponent } from '../ImageComponent'
+import * as S from './styles'
 
 type CardProps = {
-  allProducts: ProductsProps[];
-  filterParams: string;
-};
+  allProducts: ProductsProps[]
+  filterParams: string
+}
 
 export const Card = ({ allProducts, filterParams }: CardProps) => {
-  const filtredList = productListFiltred(allProducts, filterParams);
+  const filtredList = productListFiltred(allProducts, filterParams)
 
-  const isEmpty = filtredList.length === 0;
+  const isEmpty = filtredList.length === 0
 
-  const { push } = useRouter();
-
-  // const { isEmpty, setIsEmpty } = useIsEmptyState();
-
-  // console.log(isEmpty);
-
-  // useEffect(() => {
-  //   () => setIsEmpty(filtredList);
-  // }, [filtredList]);
+  const { push } = useRouter()
 
   return filterParams ? (
     <S.CardWrapper>
       {isEmpty ? (
-        <>Produto não encontrado</>
+        <div>Produto não encontrado</div>
       ) : (
         filtredList?.map((product, index) => (
           <S.Card
             key={index}
             onClick={() =>
-              push(`/product/product=${product.name}&${product.price_in_cents}`)
+              push(`/product/product=${product.name}&price=${product.price_in_cents}`)
             }
           >
             <ImageComponent src={product.image_url} />
@@ -69,5 +61,5 @@ export const Card = ({ allProducts, filterParams }: CardProps) => {
         </S.Card>
       ))}
     </S.CardWrapper>
-  );
-};
+  )
+}
