@@ -16,17 +16,21 @@ export default function Page({
   params,
 }: Readonly<{ params: { productProps: string } }>) {
   const [showToast, setShowToast] = useState(false)
+
   const price = urlParamsSliced(params.productProps)
 
   const handleToast = () => {
     setShowToast(true)
     setTimeout(() => {
       setShowToast((prev) => !prev)
-    }, 2000)
+    }, 1000)
   }
   const { data: choosenProduct, isLoading } = useSWR('testFilter', () =>
     getChossenProductUseCase(price, getAllProductsImpl)
   )
+
+  console.log(choosenProduct?.name)
+  console.log(productNameSliced(choosenProduct?.name!))
 
   const { setBagCartProduct } = useBagCartStore()
 
@@ -72,6 +76,7 @@ export default function Page({
 
             {!!choosenProduct && (
               <S.AddToCartButton
+                disabled={showToast}
                 onClick={() => {
                   setBagCartProduct!(choosenProduct)
                   handleToast()

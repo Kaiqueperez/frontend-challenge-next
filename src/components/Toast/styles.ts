@@ -8,14 +8,20 @@ export const ToastDialog = styled.dialog`
   box-sizing: border-box;
   border: none;
   position: absolute;
-  bottom: 300px;
-  left: 800px;
+  bottom: 0;
+  left: 25px;
   animation-name: toast;
   animation-duration: 4s;
 
   @keyframes toast {
-    0% {bottom: 250px;}
-    50% {bottom: 275px;}
-    100% {bottom: 300px}
+    0% {
+      bottom: 250px;
+    }
+    50% {
+      bottom: 275px;
+    }
+    100% {
+      bottom: 300px;
+    }
   }
 `
