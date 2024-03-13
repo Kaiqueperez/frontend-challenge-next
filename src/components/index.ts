@@ -1,6 +1,6 @@
 export * from './BagCart';
 export * from './Button';
-export * from './Card';
+export * from './Cards';
 export * from './Container';
 export * from './Filters';
 export * from './Header';

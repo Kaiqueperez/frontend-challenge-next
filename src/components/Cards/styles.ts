@@ -1,23 +1,12 @@
-import styled from "styled-components";
-import { Section } from "../SectionWrapper/styles";
+import styled from 'styled-components'
+import { Section } from '../SectionWrapper/styles'
 
 export const CardWrapper = styled(Section)`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-`;
-
-export const Card = styled.div`
-  img {
-    height: 15rem;
-    border-radius: 15px 15px 0px 0px;
-  }
-
-  :hover {
-    cursor: pointer;
-  }
-`;
+`
 
 export const CardContent = styled.div`
   padding-top: 1rem;
@@ -41,4 +30,4 @@ export const CardContent = styled.div`
     font-weight: 600;
     line-height: 150%;
   }
-`;
+`

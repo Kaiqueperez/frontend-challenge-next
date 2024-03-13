@@ -62,6 +62,6 @@ export const AddToCartButton = styled(Button)`
 
   :disabled {
     background-color: #ccc;
-    color: #09090a;
+    color: white;
   }
 `

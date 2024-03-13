@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/Card'
+import { CardsProducts } from '@/components/Cards'
 import { Container } from '@/components/Container'
 import { Filters } from '@/components/Filters'
 import { Pagination } from '@/components/Pagination'
@@ -9,6 +9,7 @@ import usePagination from '@/hooks/usePagination'
 import { getAllProductsImpl } from '@/repositories/getProducts'
 import { useFilterListState } from '@/store'
 import { getProductsUseCase } from '@/useCases/getProductsUseCase'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import useSWR from 'swr'
 
@@ -17,6 +18,8 @@ export default function Home() {
     getProductsUseCase(getAllProductsImpl)
   )
   const [filterParam, setFilterParam] = useState('')
+
+  const  {push} = useRouter()
 
   const {
     POST_PER_PAGE,
@@ -42,9 +45,10 @@ export default function Home() {
               productsPerPage={POST_PER_PAGE}
               setCurrentPage={setCurrentPage}
             />
-            <Card
+            <CardsProducts
               allProducts={currentProducts ?? []}
               filterParams={searcFilterhValue || filterParam}
+              pushOfUseRouter={push}
             />
             <Pagination
               currentPage={currentPage}
