@@ -1,4 +1,3 @@
-'use client'
 import { useBagCartStore, useFilterListState } from '@/store'
 import Link from 'next/link'
 import { BagCart } from '../BagCart'
@@ -21,13 +20,14 @@ export const Header = () => {
       <S.WrapperBagAndSearh>
         <SearchField.Root>
           <SearchField.Input
+            data-testid="search-header-input"
             value={searcFilterhValue}
             icon="Search.svg"
             placeholder="Procurando por algo específico?"
             onChange={(e) => setSearchFilterValue(e.currentTarget.value)}
           />
         </SearchField.Root>
-        <BagCart itensCart={amountItens ?? 0} />
+        <BagCart itensCart={amountItens ?? 0} url="/checkout/cart" />
       </S.WrapperBagAndSearh>
     </S.Header>
   )

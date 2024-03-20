@@ -65,10 +65,8 @@ export const useBagCartStore = create<BagCartStore>()(
             productId
           )
           const selectProduct = products[selectedProductDeleteIndex]
+          products.splice(selectedProductDeleteIndex, 1)
           return {
-            products: products.filter(
-              (_, product) => product !== selectedProductDeleteIndex
-            ),
             subTotalPrice: products.map((item) => item.price_in_cents),
             amountItens: amountItens - selectProduct.itemCount,
           }
