@@ -32,22 +32,20 @@ export default function Page({
     <Container>
       {isLoading ? (
         <p>Loading...</p>
-      ) : (
-        choosenProduct && (
-          <>
-            <Toast
-              needShow={showToast}
-              toastText="Produto adicionado com sucesso!"
-            />
-            <ProductInfo
-              choosenProduct={choosenProduct}
-              sendProductToCart={setBagCartProduct}
-              toastHandler={handleToast}
-              disabledButton={showToast}
-            />
-          </>
-        )
-      )}
+      ) : choosenProduct ? (
+        <>
+          <Toast
+            needShow={showToast}
+            toastText="Produto adicionado com sucesso!"
+          />
+          <ProductInfo
+            choosenProduct={choosenProduct}
+            sendProductToCart={setBagCartProduct}
+            toastHandler={handleToast}
+            disabledButton={showToast}
+          />
+        </>
+      ) : null}
     </Container>
   )
 }

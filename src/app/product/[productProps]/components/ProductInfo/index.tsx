@@ -4,7 +4,7 @@ import { centsToBrazilianCurrency, productNameSliced } from '@/utils'
 import Link from 'next/link'
 import * as S from './styles'
 
-type ProductDescripitonProps = {
+export type ProductDescripitonProps = {
   choosenProduct: ProductsProps
   sendProductToCart: ((newProduct: ProductsProps) => void) | undefined
   toastHandler: () => void
@@ -47,7 +47,7 @@ const ProductInfo = ({
           </S.Description>
         </div>
 
-        {!!choosenProduct && (
+        {!!choosenProduct ? (
           <S.AddToCartButton
             disabled={disabledButton}
             onClick={() => {
@@ -57,7 +57,7 @@ const ProductInfo = ({
           >
             Adicionar ao Carrinho
           </S.AddToCartButton>
-        )}
+        ) : null}
       </S.WrapperProductDescriton>
     </S.WrapperProductInfo>
   )
